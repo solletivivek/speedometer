@@ -14,9 +14,6 @@
     <div id="speedometer">Speed: <span id="speed">0</span> km/h</div>
 
     <script>
-        // JavaScript code to fetch location data and update speedometer
-
-        // Function to fetch location data from browser
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showSpeed);
@@ -24,13 +21,9 @@
                 console.log("Geolocation is not supported by this browser.");
             }
         }
-
-        // Function to send location data to backend and update speedometer
         function showSpeed(position) {
             const { latitude, longitude } = position.coords;
             const timestamp = position.timestamp;
-
-            // Send location data to backend
             fetch('/calculate-speed', {
                 method: 'POST',
                 headers: {
@@ -40,13 +33,10 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Update speedometer with calculated speed
                 document.getElementById('speed').innerText = data.speed;
             })
             .catch(error => console.error('Error:', error));
         }
-
-        // Call getLocation function to start tracking speed
         getLocation();
     </script>
 </body>
